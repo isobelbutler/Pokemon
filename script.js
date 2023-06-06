@@ -1,12 +1,20 @@
 const form = document.querySelector("form");
-const output = document.querySelector("output")
+const output = document.querySelector("output");
+const pokemonName = document.querySelector("#pokemon_name");
+const pokemonImg = document.querySelector("#pokemon_img");
+const abilityOne = document.querySelector("#ability_one");
+const abilityTwo = document.querySelector("#ability_two");
+
+
+
+// const card = document.querySelector(".card")
+
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
     output.innerHTML = "";
     const formData = new FormData(form);
     const name = formData.get("pokemon");
-    const data = Object.fromEntries(formData);
 
   fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
     .then((response) => {
@@ -14,20 +22,11 @@ const output = document.querySelector("output")
       return response.json();
     })
     .then((pokemonData) => {
-    const heading = document.createElement("h2");
-    heading.textContent = pokemonData.name;
-
-    const image = document.createElement("img");
-    image.src = pokemonData.sprites.front_default;
-    image.alt = "";
-
-    const abilityOne = document.createElement("h3");
-    abilityOne.textContent = pokemonData.abilities[0].ability.name;
-
-    const abilityTwo = document.createElement("h3");
-    abilityTwo.textContent = pokemonData.abilities[1].ability.name;
-
-    output.append(heading, image, abilityOne, abilityTwo);
+    pokemonName.innerHTML = `<h1>${pokemonData.name}</h1>`;
+    pokemonImg.innerHTML = `<img src="${pokemonData.sprites.front_default}" alt="${pokemonData.name}"></img>`;
+    abilityOne.innerHTML = `<p>${pokemonData.abilities[0].ability.name}</p>`
+    abilityTwo.innerHTML = `<p>${pokemonData.abilities[1].ability.name}</p>`
+    console.log(pokemonData);
     })
     
     .catch((error) => {
@@ -38,7 +37,5 @@ const output = document.querySelector("output")
             output.textContent = "Something went wrong";
         }
     });
-
-
 });
 
