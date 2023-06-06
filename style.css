@@ -1,0 +1,23 @@
+* {
+    box-sizing: border-box;
+}
+
+.card_main_container {
+    height: 493px;
+    background-color: #E1BF24;
+    width: 333px;
+    border-radius: 18px;
+    padding: 20px;
+    display: flex;}  
+
+.card_inner_container {
+    width: inherit;    
+    background-color: #4F96C0;
+    border-radius: 2px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card_inner_container > * {
+    width: 100%;
+}
