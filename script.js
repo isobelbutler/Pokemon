@@ -1,9 +1,10 @@
 const form = document.querySelector("form");
-const output = document.querySelector("output");
-const pokemonName = document.querySelector("#pokemon_name");
-const pokemonImg = document.querySelector("#pokemon_img");
-const abilityOne = document.querySelector("#ability_one");
-const abilityTwo = document.querySelector("#ability_two");
+const pokemonNameHTML = document.querySelector("#pokemon_name");
+const pokemonImgHTML = document.querySelector("#pokemon_img");
+const abilityOneHTML = document.querySelector("#ability_one");
+const abilityTwoHTML = document.querySelector("#ability_two");
+
+ 
 
 
 
@@ -12,21 +13,29 @@ const abilityTwo = document.querySelector("#ability_two");
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
-    output.innerHTML = "";
     const formData = new FormData(form);
-    const name = formData.get("pokemon");
+    const user_pokemon = formData.get("pokemon");
 
-  fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
+  fetch(`https://pokeapi.co/api/v2/pokemon/${user_pokemon}`)
     .then((response) => {
       if (!response.ok) throw new Error(response.status);
       return response.json();
     })
     .then((pokemonData) => {
-    pokemonName.innerHTML = `<h1>${pokemonData.name}</h1>`;
-    pokemonImg.innerHTML = `<img src="${pokemonData.sprites.front_default}" alt="${pokemonData.name}"></img>`;
-    abilityOne.innerHTML = `<p>${pokemonData.abilities[0].ability.name}</p>`
-    abilityTwo.innerHTML = `<p>${pokemonData.abilities[1].ability.name}</p>`
-    console.log(pokemonData);
+      const name = pokemonData.name;
+      const image = pokemonData.sprites.front_default;
+      const abilityOne = pokemonData.abilities[0].ability.name;
+      const abilityTwo = pokemonData.abilities[1].ability.name;
+
+
+      pokemonNameHTML.innerHTML = `<h1>${name}</h1>`;
+      pokemonImgHTML.innerHTML = `<img src="${image}" alt="${name}"></img>`;
+      abilityOneHTML.innerHTML = `<p>${abilityOne}</p>`;
+      abilityTwoHTML.innerHTML = `<p>${abilityTwo}</p>`;
+      
+      console.log(pokemonData);
+    
+
     })
     
     .catch((error) => {
